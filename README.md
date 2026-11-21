@@ -82,45 +82,45 @@ These resources are included in the repository for performance analysis.
 | `best_crop_disease_model.keras` | Best saved trained model |
 | `crop_disease_model.keras` | Trained model |
 | `class_names.json` | Classification labels |
+| `disease_knowledge.json` | Agricultural symptoms, organic & chemical remedies for all 38 classes |
+| `app.py` | FastAPI REST API backend & static file server |
+| `model_service.py` | Inference pipeline with Grad-CAM neural attention visualizer |
+| `database.py` | SQLite persistence for scan audit history and analytics |
+| `run_app.py` / `start.bat` | One-click application launchers |
+| `static/` | Modern responsive frontend (dual theme, live camera, drag-and-drop) |
 | `evaluation_metrics.json` | Evaluation metrics |
 | `classification_report.txt` | Classification report |
 | `confusion_matrix.png` | Confusion matrix visualization |
 | `training_curves.png` | Training performance visualization |
+| `requirements.txt` | Python package dependencies |
 
 ## 💻 How to Run the Project
 
-### Option 1: Google Colab
+### Option 1: Interactive Web Application (Recommended)
+
+1. Clone the repository and install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Start the web platform:
+   ```bash
+   python run_app.py
+   # Or on Windows: double-click start.bat
+   ```
+3. Open your browser at **http://127.0.0.1:8000** to access:
+   - **Scan & Diagnose**: Drag-and-drop leaf photos or capture via live camera.
+   - **Grad-CAM Visualizer**: Interactive heatmaps explaining which leaf features triggered the prediction.
+   - **Agronomic Action Guide**: Organic remedies, chemical treatments, and prevention protocols.
+   - **Disease Library**: Searchable encyclopedia of 38 crop disease profiles.
+   - **Scan History**: Audit log of past scans backed by SQLite.
+   - **Daylight & Midnight Theme**: 1-click theme switcher.
+
+### Option 2: Google Colab
 
 1. Download or clone this repository.
-2. Open the `.ipynb` notebook in Google Colab.
-3. Upload the trained model and supporting JSON file if required.
-4. Run the model-loading and prediction cells.
-5. Upload a crop-leaf photograph.
-6. View the top 5 predicted classes and confidence scores.
-
-### Option 2: Local Environment
-
-Install the required dependencies:
-
-```bash
-pip install tensorflow numpy pillow matplotlib scikit-learn gradio
-```
-
-Load the trained model:
-
-```python
-import tensorflow as tf
-import json
-
-model = tf.keras.models.load_model(
-    "best_crop_disease_model.keras"
-)
-
-with open("class_names.json", "r") as f:
-    CLASS_NAMES = json.load(f)
-```
-
-Use the notebook for the complete prediction implementation.
+2. Open `Crop_Disease_Detection_TensorFlow_Starter (1).ipynb` in Google Colab.
+3. Choose **Runtime → Change runtime type → T4 GPU**.
+4. Run all cells from top to bottom.
 
 ## ⚠️ Disclaimer
 

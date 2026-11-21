@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantGuard AI – Agricultural Deep Learning & Crop Health Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient Botanical Background Glows -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>PlantGuard <span class="badge-ai">AI</span></h1>
+          <p>NNDL Neural Vision & Smart Agronomy</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-tab active" data-tab="scan-tab">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          Scan & Diagnose
+        </button>
+        <button class="nav-tab" data-tab="encyclopedia-tab">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Disease Library
+        </button>
+        <button class="nav-tab" data-tab="history-tab">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Scan History
+        </button>
+        <button class="nav-tab" data-tab="model-tab">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Model Specs
+        </button>
+      </nav>
+
+      <div class="nav-controls">
+        <!-- Theme Switcher Button -->
+        <button id="theme-toggle" class="btn-theme" title="Toggle Daylight/Midnight Theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+          <span class="theme-text">Theme</span>
+        </button>
+
+        <div class="nav-status">
+          <span class="status-dot"></span>
+          <span class="status-label">MobileNetV2 • 95.1%</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- TAB 1: SCAN & DIAGNOSE -->
+    <section id="scan-tab" class="tab-view active">
+      <div class="hero-banner">
+        <div class="hero-badge">
+          <span class="badge-sparkle">✦</span>
+          Explainable Deep Learning for Plant Pathology
+        </div>
+        <h2>Empowering Crop Health with Neural Vision</h2>
+        <p>Instant identification across 38 crop disease categories using transfer learning and Gradient-Weighted Class Activation Mapping (Grad-CAM) to pinpoint infected tissue.</p>
+      </div>
+
+      <div class="diagnose-layout">
+        <!-- Left Panel: Input & Camera -->
+        <div class="upload-card">
+          <div class="card-header">
+            <div>
+              <h3>Leaf Photograph Input</h3>
+              <p class="card-subtitle">Choose an image from disk, camera, or quick demo samples</p>
+            </div>
+            <div class="input-toggles">
+              <button id="toggle-upload" class="toggle-btn active">Upload</button>
+              <button id="toggle-camera" class="toggle-btn">Camera</button>
+            </div>
+          </div>
+
+          <!-- File Drop Zone -->
+          <div id="dropzone-area" class="dropzone">
+            <input type="file" id="file-input" accept="image/*" hidden>
+            <div class="dropzone-content">
+              <div class="upload-icon-container">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <h4>Drag & drop leaf photo here</h4>
+              <p>Supports JPG, PNG, WebP up to 15MB</p>
+              <button type="button" class="btn-browse" onclick="document.getElementById('file-input').click()">Browse Image</button>
+            </div>
+            <!-- Image Preview Box -->
+            <div id="preview-box" class="preview-box hidden">
+              <img id="image-preview" src="" alt="Selected Leaf">
+              <button id="btn-remove-image" class="btn-clear-img" title="Remove image">&times;</button>
+            </div>
+          </div>
+
+          <!-- Quick Test Demo Samples Bar -->
+          <div class="quick-samples-section">
+            <span class="samples-label">Quick Test Samples:</span>
+            <div class="samples-btn-group">
+              <button class="btn-sample" data-sample="apple_scab">🍏 Apple Scab</button>
+              <button class="btn-sample" data-sample="tomato_early_blight">🍅 Tomato Blight</button>
+              <button class="btn-sample" data-sample="corn_rust">🌽 Corn Rust</button>
+              <button class="btn-sample" data-sample="healthy_pepper">🌿 Healthy Pepper</button>
+            </div>
+          </div>
+
+          <!-- Live Camera View (Hidden by default) -->
+          <div id="camera-area" class="camera-area hidden">
+            <video id="webcam-video" autoplay playsinline></video>
+            <canvas id="camera-canvas" hidden></canvas>
+            <div class="camera-actions">
+              <button id="btn-capture" class="btn-action">📸 Snap Photo</button>
+              <button id="btn-retake" class="btn-secondary hidden">🔄 Retake</button>
+            </div>
+          </div>
+
+          <!-- Optional Notes -->
+          <div class="notes-input-group">
+            <label for="scan-notes">Farm Location / Field Notes</label>
+            <input type="text" id="scan-notes" placeholder="e.g. Greenhouse #2, lower leaf chlorosis...">
+          </div>
+
+          <!-- Action Button -->
+          <button id="btn-analyze" class="btn-primary" disabled>
+            <span class="btn-text">🔬 Run Deep Learning Diagnosis</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </div>
+
+        <!-- Right Panel: Results & Explainability -->
+        <div class="results-card">
+          <!-- Initial Placeholder -->
+          <div id="results-placeholder" class="placeholder-state">
+            <div class="placeholder-icon-wrap">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3>Awaiting Leaf Scan</h3>
+            <p>Upload a photograph from your device, capture one using your camera, or click one of the quick test samples above to generate an instant diagnosis.</p>
+          </div>
+
+          <!-- Active Diagnosis Result -->
+          <div id="results-content" class="results-content hidden">
+            <!-- Header Result Badge -->
+            <div class="result-header-box">
+              <div class="primary-result">
+                <div class="result-tags">
+                  <span id="res-crop-badge" class="badge-crop">Tomato</span>
+                  <span id="res-severity-badge" class="badge-severity">Medium Severity</span>
+                </div>
+                <h2 id="res-disease-name">Early Blight (Alternaria solani)</h2>
+              </div>
+              <div class="confidence-meter-container">
+                <div class="radial-gauge">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    <path id="radial-progress" class="circle" stroke-dasharray="95, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    <text x="18" y="20.35" class="percentage" id="res-confidence-text">95%</text>
+                  </svg>
+                </div>
+                <span class="gauge-label">Confidence</span>
+              </div>
+            </div>
+
+            <!-- Explainable AI (Grad-CAM) Visualizer -->
+            <div class="gradcam-container">
+              <div class="gradcam-header">
+                <div>
+                  <h4>🧠 Neural Activation Map (Grad-CAM)</h4>
+                  <p class="subtext">Highlights spatial regions that guided the classification decision</p>
+                </div>
+                <div class="gradcam-toggle-group">
+                  <button class="cam-view-btn active" data-view="overlay">Overlay</button>
+                  <button class="cam-view-btn" data-view="heatmap">Heatmap</button>
+                  <button class="cam-view-btn" data-view="original">Original</button>
+                </div>
+              </div>
+              <div class="gradcam-display">
+                <img id="gradcam-image" src="" alt="Grad-CAM Visualization">
+                <div class="cam-legend">
+                  <span class="legend-chip red">High Feature Activation (Infection Center)</span>
+                  <span class="legend-chip blue">Low Activation (Healthy Tissue)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top 5 Ranked Classes -->
+            <div class="rankings-box">
+              <h4>Classification Probability Distribution</h4>
+              <div id="top-predictions-list" class="predictions-bars">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Agricultural Treatment & Remedy Guide -->
+            <div class="treatment-box">
+              <h4>🌾 Agronomic Action Guide & Remedies</h4>
+              
+              <div class="remedy-card symptoms">
+                <div class="remedy-title">
+                  <span class="remedy-icon">🔍</span>
+                  <strong>Diagnostic Symptoms</strong>
+                </div>
+                <p id="res-symptoms">Concentric rings resembling a target board with chlorotic halos.</p>
+              </div>
+
+              <div class="remedy-grid">
+                <div class="remedy-card organic">
+                  <div class="remedy-title">
+                    <span class="remedy-icon">🍃</span>
+                    <strong>Organic & Bio-Remedies</strong>
+                  </div>
+                  <p id="res-organic">Apply liquid copper soap, neem oil, or Bacillus subtilis sprays.</p>
+                </div>
+
+                <div class="remedy-card chemical">
+                  <div class="remedy-title">
+                    <span class="remedy-icon">🧪</span>
+                    <strong>Chemical Control</strong>
+                  </div>
+                  <p id="res-chemical">Chlorothalonil or Mancozeb sprays applied early in disease cycle.</p>
+                </div>
+              </div>
+
+              <div class="remedy-card prevention">
+                <div class="remedy-title">
+                  <span class="remedy-icon">🛡️</span>
+                  <strong>Preventative Practices</strong>
+                </div>
+                <p id="res-prevention">Drip irrigation to avoid leaf wetness; prune lower leaves to improve airflow.</p>
+              </div>
+            </div>
+
+            <!-- Report Actions -->
+            <div class="action-footer">
+              <button id="btn-print-report" class="btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                Print / Save Diagnostic Card
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: DISEASE ENCYCLOPEDIA -->
+    <section id="encyclopedia-tab" class="tab-view">
+      <div class="section-heading">
+        <h2>PlantVillage Disease Encyclopedia</h2>
+        <p>Comprehensive repository of all 38 supported crop conditions, symptoms, and agronomic management protocols.</p>
+      </div>
+
+      <div class="encyclopedia-toolbar">
+        <input type="text" id="disease-search" placeholder="Search by crop, disease, or symptoms (e.g., Tomato, Scab, Blight)...">
+        <div id="crop-filter-chips" class="filter-chips">
+          <button class="chip active" data-crop="all">All Crops</button>
+          <button class="chip" data-crop="Apple">Apple</button>
+          <button class="chip" data-crop="Corn">Corn</button>
+          <button class="chip" data-crop="Grape">Grape</button>
+          <button class="chip" data-crop="Potato">Potato</button>
+          <button class="chip" data-crop="Tomato">Tomato</button>
+          <button class="chip" data-crop="Pepper">Pepper</button>
+          <button class="chip" data-crop="Orange">Orange</button>
+          <button class="chip" data-crop="Peach">Peach</button>
+          <button class="chip" data-crop="Strawberry">Strawberry</button>
+        </div>
+      </div>
+
+      <div id="encyclopedia-grid" class="cards-grid">
+        <!-- Dynamically generated cards -->
+      </div>
+    </section>
+
+    <!-- TAB 3: SCAN HISTORY & AUDIT LOG -->
+    <section id="history-tab" class="tab-view">
+      <div class="section-heading">
+        <h2>Scan History & Audit Log</h2>
+        <p>Persistent record of previous leaf scans stored securely in local SQLite database.</p>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-overview">
+        <div class="stat-card">
+          <span class="stat-label">Total Scans Performed</span>
+          <span id="stat-total-scans" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Most Common Crop</span>
+          <span id="stat-top-crop" class="stat-value">—</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Most Detected Condition</span>
+          <span id="stat-top-disease" class="stat-value">—</span>
+        </div>
+        <div class="stat-actions">
+          <button id="btn-clear-history" class="btn-danger-outline">Clear History</button>
+        </div>
+      </div>
+
+      <!-- History Table -->
+      <div class="history-table-container">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Scan ID</th>
+              <th>Date & Time</th>
+              <th>Crop</th>
+              <th>Diagnosed Condition</th>
+              <th>Confidence</th>
+              <th>Severity</th>
+              <th>Farmer Notes</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4: MODEL SPECS & NNDL PROJECT DETAILS -->
+    <section id="model-tab" class="tab-view">
+      <div class="section-heading">
+        <h2>Deep Learning Architecture & Academic Benchmarks</h2>
+        <p>Neural Network architecture, dataset properties, and experimental benchmarks for NNDL project evaluation.</p>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-icon">📐</div>
+          <h3>Model Architecture</h3>
+          <p class="spec-highlight">MobileNetV2 Transfer Learning</p>
+          <ul>
+            <li><strong>Input Dimensions:</strong> 224 &times; 224 &times; 3 RGB</li>
+            <li><strong>Base Model:</strong> MobileNetV2 pretrained on ImageNet (Inverted Residuals with Linear Bottlenecks)</li>
+            <li><strong>Global Average Pooling:</strong> Reduces spatial $7\times 7\times 1280$ activation maps into 1280 feature vectors</li>
+            <li><strong>Regularization:</strong> Dropout (0.25) to prevent over-fitting on leaf patterns</li>
+            <li><strong>Output Classifier:</strong> 38-neuron Dense layer with Softmax activation</li>
+          </ul>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon">🎯</div>
+          <h3>PlantVillage Dataset & Results</h3>
+          <p class="spec-highlight">Evaluated on 8,146 Held-Out Test Samples</p>
+          <ul>
+            <li><strong>Total Training Images:</strong> 54,303 leaf photographs</li>
+            <li><strong>Total Disease Classes:</strong> 38 distinct crop categories</li>
+            <li><strong>Test Accuracy:</strong> 95.11%</li>
+            <li><strong>Test Categorical Loss:</strong> 0.1463</li>
+            <li><strong>Explainability Layer:</strong> <code>out_relu</code> layer via Gradient-Weighted Class Activation Mapping</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-preview-card">
+        <h3>Grad-CAM Gradient Extraction Pipeline</h3>
+        <pre><code># Gradient-Weighted Class Activation Mapping (Grad-CAM)
+with tf.GradientTape() as tape:
+    conv_outputs, base_output = intermediate_model(preprocessed_leaf)
+    tape.watch(conv_outputs)
+    preds = classifier_head(base_output)
+    loss = preds[:, predicted_class_idx]
+
+grads = tape.gradient(loss, conv_outputs)
+pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
+heatmap = tf.reduce_sum(tf.multiply(pooled_grads, conv_outputs[0]), axis=-1)
+heatmap = np.maximum(heatmap, 0) / np.max(heatmap)</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>🌱 <strong>PlantGuard AI</strong> &bull; Neural Networks & Deep Learning (NNDL) Academic Project &bull; Agricultural Vision System</p>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
