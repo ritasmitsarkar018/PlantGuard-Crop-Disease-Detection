@@ -42,14 +42,19 @@ async def health_check():
 @app.post("/api/predict")
 async def predict_disease(
     file: UploadFile = File(...),
-    notes: str = Query("", description="Optional notes from farmer/user")
+    notes: str = Query("", description="Optional notes from farmer/user"),
+    crop_filter: str = Query("auto", description="Target crop filter (e.g. Apple, Tomato, auto)")
 ):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Uploaded file must be a valid image (JPEG/PNG/WebP).")
 
     try:
         image_bytes = await file.read()
-        analysis = service.analyze_leaf(image_bytes, filename=file.filename)
+        analysis = service.analyze_leaf(
+            image_bytes, 
+            filename=file.filename,
+            crop_filter=crop_filter
+        )
         
         # Save scan to SQLite history
         scan_id = database.save_scan(

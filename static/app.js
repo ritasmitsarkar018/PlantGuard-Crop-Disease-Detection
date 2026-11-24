@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnRemoveImage = document.getElementById("btn-remove-image");
   const btnAnalyze = document.getElementById("btn-analyze");
   const scanNotes = document.getElementById("scan-notes");
+  const cropSelector = document.getElementById("crop-selector");
 
   const toggleUpload = document.getElementById("toggle-upload");
   const toggleCamera = document.getElementById("toggle-camera");
@@ -112,8 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".dropzone-content").classList.add("hidden");
         btnAnalyze.disabled = false;
 
-        // Auto-fill note for demonstration
+        // Auto-fill note & plant selector for demonstration
         scanNotes.value = `Demo Test: ${btn.textContent.trim()}`;
+        if (cropSelector) {
+          if (sampleKey === "apple_scab") cropSelector.value = "Apple";
+          else if (sampleKey === "tomato_early_blight") cropSelector.value = "Tomato";
+          else if (sampleKey === "corn_rust") cropSelector.value = "Corn";
+          else if (sampleKey === "healthy_pepper") cropSelector.value = "Pepper";
+        }
 
       } catch (err) {
         console.error("Failed to load sample:", err);
@@ -263,8 +270,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData();
       formData.append("file", currentFile);
       const notes = scanNotes.value.trim();
+      const selectedCrop = cropSelector ? cropSelector.value : "auto";
 
-      const url = notes ? `/api/predict?notes=${encodeURIComponent(notes)}` : "/api/predict";
+      const params = new URLSearchParams();
+      if (notes) params.append("notes", notes);
+      if (selectedCrop && selectedCrop !== "auto") params.append("crop_filter", selectedCrop);
+
+      const url = params.toString() ? `/api/predict?${params.toString()}` : "/api/predict";
       const response = await fetch(url, {
         method: "POST",
         body: formData
@@ -337,6 +349,25 @@ document.addEventListener("DOMContentLoaded", () => {
     resOrganic.textContent = data.organic_treatment;
     resChemical.textContent = data.chemical_treatment;
     resPrevention.textContent = data.prevention;
+
+    // Plant Context Switcher Buttons
+    const pillCrops = document.querySelectorAll(".pill-crop");
+    const activeFilter = data.applied_filter ? data.applied_filter.toLowerCase() : "auto";
+    pillCrops.forEach(pill => {
+      const pillCropVal = pill.getAttribute("data-crop");
+      if (pillCropVal.toLowerCase() === activeFilter || (activeFilter === "auto" && pillCropVal === "auto")) {
+        pill.classList.add("active");
+      } else {
+        pill.classList.remove("active");
+      }
+
+      pill.onclick = () => {
+        if (cropSelector) {
+          cropSelector.value = pillCropVal;
+        }
+        btnAnalyze.click();
+      };
+    });
 
     // Smooth scroll to results
     resultsContent.scrollIntoView({ behavior: "smooth", block: "nearest" });
