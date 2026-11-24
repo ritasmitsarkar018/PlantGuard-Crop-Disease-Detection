@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=3.2">
 </head>
 <body>
   <!-- Ambient Botanical Background Glows -->
@@ -93,6 +93,27 @@
             </div>
           </div>
 
+          <!-- PROMINENT PLANT / CROP SELECTOR (AT TOP) -->
+          <div class="plant-select-banner">
+            <div class="plant-select-header">
+              <span class="plant-select-title">🌿 Target Plant Species:</span>
+              <span id="active-plant-indicator" class="active-plant-pill">Auto-Detect (All 38 Classes)</span>
+            </div>
+            <div class="plant-pill-group">
+              <button type="button" class="btn-plant-pill active" data-crop="auto">🔍 Auto-Detect</button>
+              <button type="button" class="btn-plant-pill" data-crop="Apple">🍏 Apple</button>
+              <button type="button" class="btn-plant-pill" data-crop="Tomato">🍅 Tomato</button>
+              <button type="button" class="btn-plant-pill" data-crop="Corn">🌽 Corn</button>
+              <button type="button" class="btn-plant-pill" data-crop="Grape">🍇 Grape</button>
+              <button type="button" class="btn-plant-pill" data-crop="Potato">🥔 Potato</button>
+              <button type="button" class="btn-plant-pill" data-crop="Pepper">🫑 Pepper</button>
+              <button type="button" class="btn-plant-pill" data-crop="Strawberry">🍓 Strawberry</button>
+              <button type="button" class="btn-plant-pill" data-crop="Peach">🍑 Peach</button>
+              <button type="button" class="btn-plant-pill" data-crop="Cherry">🍒 Cherry</button>
+            </div>
+            <input type="hidden" id="crop-selector" value="auto">
+          </div>
+
           <!-- File Drop Zone -->
           <div id="dropzone-area" class="dropzone">
             <input type="file" id="file-input" accept="image/*" hidden>
@@ -134,28 +155,6 @@
               <button id="btn-capture" class="btn-action">📸 Snap Photo</button>
               <button id="btn-retake" class="btn-secondary hidden">🔄 Retake</button>
             </div>
-          </div>
-
-          <!-- Crop / Plant Selector -->
-          <div class="crop-select-group">
-            <label for="crop-selector">Plant / Crop Type <span class="label-hint">(Select plant for highest accuracy)</span></label>
-            <select id="crop-selector" class="crop-dropdown">
-              <option value="auto">🔍 Auto-Detect Plant (Search all 38 Classes)</option>
-              <option value="Apple">🍏 Apple</option>
-              <option value="Tomato">🍅 Tomato</option>
-              <option value="Corn">🌽 Corn (Maize)</option>
-              <option value="Grape">🍇 Grape</option>
-              <option value="Potato">🥔 Potato</option>
-              <option value="Pepper">🫑 Bell Pepper</option>
-              <option value="Strawberry">🍓 Strawberry</option>
-              <option value="Peach">🍑 Peach</option>
-              <option value="Cherry">🍒 Cherry</option>
-              <option value="Orange">🍊 Orange (Citrus)</option>
-              <option value="Blueberry">🫐 Blueberry</option>
-              <option value="Soybean">🫘 Soybean</option>
-              <option value="Squash">🎃 Squash</option>
-              <option value="Raspberry">🍇 Raspberry</option>
-            </select>
           </div>
 
           <!-- Optional Notes -->
@@ -439,6 +438,6 @@ heatmap = np.maximum(heatmap, 0) / np.max(heatmap)</code></pre>
     </div>
   </footer>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=3.2"></script>
 </body>
 </html>

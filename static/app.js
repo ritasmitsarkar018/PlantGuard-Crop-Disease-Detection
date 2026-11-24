@@ -58,6 +58,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnAnalyze = document.getElementById("btn-analyze");
   const scanNotes = document.getElementById("scan-notes");
   const cropSelector = document.getElementById("crop-selector");
+  const plantPills = document.querySelectorAll(".btn-plant-pill");
+  const activePlantIndicator = document.getElementById("active-plant-indicator");
+
+  function selectPlant(cropName) {
+    if (cropSelector) cropSelector.value = cropName;
+    plantPills.forEach(p => {
+      if (p.getAttribute("data-crop").toLowerCase() === cropName.toLowerCase()) {
+        p.classList.add("active");
+      } else {
+        p.classList.remove("active");
+      }
+    });
+
+    if (activePlantIndicator) {
+      if (cropName.toLowerCase() === "auto") {
+        activePlantIndicator.textContent = "Auto-Detect (All 38 Classes)";
+      } else {
+        activePlantIndicator.textContent = `Target: ${cropName} (Filtering ${cropName} Diseases)`;
+      }
+    }
+
+    // Auto re-analyze if an image is already staged
+    if (currentFile && !btnAnalyze.disabled) {
+      btnAnalyze.click();
+    }
+  }
+
+  plantPills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      const crop = pill.getAttribute("data-crop");
+      selectPlant(crop);
+    });
+  });
 
   const toggleUpload = document.getElementById("toggle-upload");
   const toggleCamera = document.getElementById("toggle-camera");
@@ -115,12 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Auto-fill note & plant selector for demonstration
         scanNotes.value = `Demo Test: ${btn.textContent.trim()}`;
-        if (cropSelector) {
-          if (sampleKey === "apple_scab") cropSelector.value = "Apple";
-          else if (sampleKey === "tomato_early_blight") cropSelector.value = "Tomato";
-          else if (sampleKey === "corn_rust") cropSelector.value = "Corn";
-          else if (sampleKey === "healthy_pepper") cropSelector.value = "Pepper";
-        }
+        if (sampleKey === "apple_scab") selectPlant("Apple");
+        else if (sampleKey === "tomato_early_blight") selectPlant("Tomato");
+        else if (sampleKey === "corn_rust") selectPlant("Corn");
+        else if (sampleKey === "healthy_pepper") selectPlant("Pepper");
 
       } catch (err) {
         console.error("Failed to load sample:", err);
@@ -362,10 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       pill.onclick = () => {
-        if (cropSelector) {
-          cropSelector.value = pillCropVal;
-        }
-        btnAnalyze.click();
+        selectPlant(pillCropVal);
       };
     });
 
